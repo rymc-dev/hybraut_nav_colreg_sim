@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot name="hydrofoil">
+    <link name="base_link">
+        <inertial>
+            <!-- Must coincide with the collision box's actual center
+                 (matches its <origin> below), not the link origin: a
+                 mismatch here means the physics engine treats the center
+                 of mass as ~7m away from where the collision geometry
+                 (and any contact/torque it generates) actually is,
+                 which caused severe tumbling/instability under sustained
+                 maneuvering in testing. -->
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <mass value="11700"/>
+            <inertia ixx="26256.75" ixy="0" ixz="0" iyy="157062.75" iyz="0" izz="173881.5"/>
+        </inertial>
+        <visual>
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hydrofoil_usv_description/meshes/ef12.obj"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <geometry>
+                <box size="12.5 4.7 2.2"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <!-- VelocityControl is purely kinematic and only overrides velocity
+             on command; gravity still acts between updates with nothing
+             (no buoyancy/hydrodynamics plugin) to counter it, so the hull
+             sinks over time. Disable gravity on this link since motion is
+             meant to be fully defined by cmd_vel here. -->
+        <gravity>false</gravity>
+    </gazebo>
+
+    <gazebo>
+        <static>false</static>
+        <!-- No <topic> override: the default (/model/<model_name>/cmd_vel,
+             i.e. /model/hydrofoil/cmd_vel here) is what the ros_gz_bridge
+             config in config/ros_gz_bridge.yaml publishes to. An explicit
+             <topic> here sets the *literal* topic name rather than a
+             relative suffix, which desyncs it from the bridge. -->
+        <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        </plugin>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <odom_frame>odom</odom_frame>
+            <robot_base_frame>base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <dimensions>2</dimensions>
+        </plugin>
+    </gazebo>
+</robot>
