@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot name="SuperTanker">
+    <visual>
+        <geometry>
+            <mesh filename="package://hydrofoil_usv_description/models/super_tanker/meshes/SuperTanker.obj" scale="1 1 1"/>
+        </geometry>
+    </visual>
+
+    <collision>
+        <geometry>
+            <box size="90.0 14.0 16.5"/> 
+        </geometry>
+    </collision>
+</robot>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot name="SmallMotorBoat">
+    <visual>
+        <geometry>
+            <mesh filename="package://hydrofoil_usv_description/models/small_motor_boat/meshes/SmallMotorBoat.obj" scale="1 1 1"/>
+        </geometry>
+    </visual>
+
+    <collision>
+        <geometry>
+            <box size="90.0 14.0 16.5"/> 
+        </geometry>
+    </collision>
+</robot>
