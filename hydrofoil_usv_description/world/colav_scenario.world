@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="colav_scenario">
+
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"></plugin>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"></plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"></plugin>
+
+    <scene>
+      <sky></sky>
+      <ambient>0.8 0.8 0.8 1</ambient>
+      <background>0.7 0.9 1.0 1</background>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <direction>-0.3 0.3 -0.9</direction>
+    </light>
+
+    <!-- Same animated ocean surface as ocean.world -- see the comment there. -->
+    <include>
+      <uri>model://ocean_waves</uri>
+    </include>
+
+    <!-- Static traffic vessels for COLREG/colav scenario testing (see
+         models/<vessel>/model.sdf). The ego hydrofoil is NOT included here --
+         it's spawned separately by gz_sim.launch.py's spawn_entity node at
+         world (0, 0, 3.425) regardless of which world is loaded.
+
+         Each vessel's own <link> origin coincides with its mesh's native
+         origin, and every mesh was authored hull-bottom-at-z~=0, so a plain
+         "x y 0" pose here floats it at the waterline; only x/y placement and
+         yaw need choosing per vessel. Positions below are placeholder
+         scenario geometry -- spread out enough (given super_tanker alone
+         spans ~90m) not to overlap, arranged loosely around the ego's
+         origin spawn point. Adjust freely for whatever encounter geometry
+         a given COLREG scenario needs. -->
+
+    <include>
+      <name>sail_boat</name>
+      <uri>model://sail_boat_vessel</uri>
+      <pose>40 20 0 0 0 3.14159</pose>
+    </include>
+
+    <include>
+      <name>small_motor_boat</name>
+      <uri>model://small_motor_boat_vessel</uri>
+      <pose>-30 25 0 0 0 -1.5708</pose>
+    </include>
+
+    <include>
+      <name>trawler</name>
+      <uri>model://trauler_vessel</uri>
+      <pose>50 -40 0 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <name>super_tanker</name>
+      <uri>model://super_tanker_vessel</uri>
+      <pose>150 0 0 0 0 3.14159</pose>
+    </include>
+
+    <include>
+      <name>hydrofoil_contact</name>
+      <uri>model://hydrofoil_vessel</uri>
+      <pose>-60 -30 0 0 0 0.7854</pose>
+    </include>
+
+  </world>
+</sdf>

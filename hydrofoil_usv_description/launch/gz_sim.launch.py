@@ -4,7 +4,8 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, EnvironmentVariable, LaunchConfiguration
+from launch.substitutions import (Command, EnvironmentVariable,
+                                   LaunchConfiguration, PathJoinSubstitution)
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
@@ -13,19 +14,39 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('hydrofoil_usv_description')
     urdf_path = os.path.join(pkg_share, 'urdf', 'hydrofoil.urdf')
     bridge_config_path = os.path.join(pkg_share, 'config', 'ros_gz_bridge.yaml')
-    world_path = os.path.join(pkg_share, 'world', 'ocean.world')
 
     use_sim_time = LaunchConfiguration('use_sim_time')
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time', default_value='true',
         description='Use /clock from Gazebo as ROS time source')
 
+    # Filename only (not a path) -- resolved against this package's world/
+    # dir below, so e.g. `world:=colav_scenario.world` switches to the
+    # traffic-vessel scenario without needing a full path on the command
+    # line. Everything else (ego spawn, bridge, resource paths) is the same
+    # regardless of which world is picked.
+    world = LaunchConfiguration('world')
+    declare_world = DeclareLaunchArgument(
+        'world', default_value='ocean.world',
+        description='World file (in world/) to load, e.g. colav_scenario.world')
+    world_path = PathJoinSubstitution([pkg_share, 'world', world])
+
     # The URDF's mesh uses a package:// URI, which sdformat rewrites to
-    # model://hydrofoil_usv_description/meshes/ef12.obj. gz-sim only
-    # resolves that against GZ_SIM_RESOURCE_PATH, which sourcing this
-    # package's install/setup.bash does NOT populate on its own (unlike
+    # model://hydrofoil_usv_description/models/hydrofoil_vessel/meshes/ef12.obj
+    # (package name + the rest of the path, unchanged). gz-sim only resolves
+    # that against GZ_SIM_RESOURCE_PATH, which sourcing this package's
+    # install/setup.bash does NOT populate on its own (unlike
     # AMENT_PREFIX_PATH) -- so prepend this package's share dir explicitly,
-    # keeping whatever was already set.
+    # keeping whatever was already set. dirname(pkg_share) is what makes that
+    # resolve: it puts pkg_share's *parent* on the path, so the URI's
+    # "hydrofoil_usv_description" segment lines up with the share dir itself
+    # and the rest of the URI is found underneath it.
+    #
+    # Scenario-obstacle models (models/<vessel>/model.config, e.g.
+    # `model://sail_boat_vessel`) are a separate case: a world's <include>
+    # uses the bare model name with no package prefix, so it needs
+    # pkg_share/models itself on the path -- dirname(pkg_share) alone won't
+    # match those.
     #
     # Also add asv_wave_sim's model/world assets so ocean.world's
     # `model://ocean_waves` include resolves. That repo carries a
@@ -38,6 +59,8 @@ def generate_launch_description():
         name='GZ_SIM_RESOURCE_PATH',
         value=[
             os.path.dirname(pkg_share),
+            os.pathsep,
+            os.path.join(pkg_share, 'models'),
             os.pathsep,
             os.path.join(asv_wave_sim_models, 'models'),
             os.pathsep,
@@ -69,7 +92,11 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('ros_gz_sim'),
                          'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': f'-r {world_path}'}.items())
+        # world_path is a substitution (its value depends on the 'world'
+        # launch arg), not a plain string, so it can't go through an
+        # f-string -- concatenate it as a list of substitutions instead,
+        # which launch joins at resolve time.
+        launch_arguments={'gz_args': ['-r ', world_path]}.items())
 
     robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -110,6 +137,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_sim_time,
+        declare_world,
         set_gz_resource_path,
         set_gz_plugin_path,
         gz_sim,

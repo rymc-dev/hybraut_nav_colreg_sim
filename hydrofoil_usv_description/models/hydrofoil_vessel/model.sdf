@@ -1,14 +1,24 @@
 <?xml version="1.0"?>
-<robot name="HydrofoilVessel">
-    <visual>
+<sdf version="1.9">
+  <model name="hydrofoil_vessel">
+    <static>true</static>
+    <link name="base_link">
+      <visual name="visual">
         <geometry>
-            <mesh filename="package://hydrofoil_usv_description/models/small_motor_boat/meshes/SmallMotorBoat.obj" scale="1 1 1"/>
+          <mesh>
+            <uri>meshes/ef12.obj</uri>
+            <scale>1 1 1</scale>
+          </mesh>
         </geometry>
-    </visual>
-
-    <collision>
+      </visual>
+      <collision name="collision">
+        <pose>6.15 -0.025 3.375 0 0 0</pose>
         <geometry>
-            <box size="90.0 14.0 16.5"/> 
+          <box>
+            <size>12.7 3.45 6.85</size>
+          </box>
         </geometry>
-    </collision>
-</robot>
+      </collision>
+    </link>
+  </model>
+</sdf>
