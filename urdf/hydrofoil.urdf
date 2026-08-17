@@ -16,7 +16,7 @@
         <visual>
             <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://hydrofoil_usv_description/models/hydrofoil_vessel/meshes/ef12.obj"/>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/ef12.obj"/>
             </geometry>
         </visual>
         <collision>
@@ -46,6 +46,16 @@
         <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
         </plugin>
         <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <!-- Deliberately NOT prefixed with the model name, unlike every
+                 urdf/*_vessel.urdf's OdometryPublisher block: this is the
+                 real ego, and hybraut_nav/existing RViz config expect plain
+                 odom/base_link. The *_vessel urdfs get a per-vessel prefix
+                 instead precisely so they don't collide with these frame_ids
+                 on the shared /tf topic when spawn_vessels:=true - before
+                 that fix, every vessel (this one included) published
+                 identical odom->base_link frame_ids, so RViz's hydrofoil
+                 model would flicker between whichever vessel's TF message
+                 arrived most recently. -->
             <odom_frame>odom</odom_frame>
             <robot_base_frame>base_link</robot_base_frame>
             <odom_publish_frequency>50</odom_publish_frequency>

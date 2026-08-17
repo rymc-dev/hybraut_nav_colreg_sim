@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- Controllable sail boat traffic vessel. Mesh/scale/collision box match
+     models/sail_boat_vessel/model.sdf (the static version of this same
+     vessel used in world/colav_scenario.world) - see that file for how the
+     8x scale and box dims were derived from the raw mesh's bounding box.
+
+     origin on inertial/visual/collision is the mesh's own scaled
+     bounding-box center, negated, so base_link's origin sits at the hull's
+     geometric center (same convention as hydrofoil.urdf) - keeping
+     inertial and collision origins identical is what matters for physics
+     stability (see the comment in hydrofoil.urdf's <inertial> for why).
+
+     Mass (4000 kg) is an estimate for a ~8m recreational sailboat - no
+     real spec exists for this mesh, so it's picked as a plausible
+     displacement for the vessel class rather than derived from the mesh.
+     Inertia is then the solid-box approximation for that mass and the
+     collision box dims (Ixx=m(y^2+z^2)/12 etc.), the same method the
+     hydrofoil's own inertia was computed with. -->
+<robot name="sail_boat_vessel">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0 0 -4.336" rpy="0 0 0"/>
+            <mass value="4000"/>
+            <inertia ixx="37410.67" ixy="0" ixz="0" iyy="56559.47" iyz="0" izz="23517.87"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 -4.336" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/sail_boat_vessel/meshes/SailBoat.obj" scale="8 8 8"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -4.336" rpy="0 0 0"/>
+            <geometry>
+                <box size="8.0 2.56 10.28"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <gravity>false</gravity>
+    </gazebo>
+
+    <gazebo>
+        <static>false</static>
+        <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        </plugin>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <!-- Prefixed with the model name - see hydrofoil.urdf's
+                 OdometryPublisher block for why: plain odom/base_link here
+                 would collide with every other vessel's frame_ids on the
+                 shared /tf topic. -->
+            <odom_frame>sail_boat_vessel/odom</odom_frame>
+            <robot_base_frame>sail_boat_vessel/base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <dimensions>3</dimensions>
+        </plugin>
+    </gazebo>
+</robot>

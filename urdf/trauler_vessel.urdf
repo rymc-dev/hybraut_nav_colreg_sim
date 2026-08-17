@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- Controllable fishing trawler traffic vessel. See sail_boat_vessel.urdf
+     for the general method (mesh/box match models/trauler_vessel/model.sdf;
+     mass is a class-plausible estimate - ~350 tonnes for a ~28m steel
+     trawler; inertia is the solid-box approximation from that mass and the
+     collision box). Note the y-offset in the origin: this hull's mesh
+     (outrigger booms included) isn't symmetric about y=0 like the others. -->
+<robot name="trauler_vessel">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0 -1.3 -7.357" rpy="0 0 0"/>
+            <mass value="350000"/>
+            <inertia ixx="26334933.3" ixy="0" ixz="0" iyy="29180433.3" iyz="0" izz="42887833.3"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 -1.3 -7.357" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/trauler_vessel/meshes/FishingVessel.obj" scale="0.02 0.02 0.02"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 -1.3 -7.357" rpy="0 0 0"/>
+            <geometry>
+                <box size="28 26.2 14.713"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <gravity>false</gravity>
+    </gazebo>
+
+    <gazebo>
+        <static>false</static>
+        <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        </plugin>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <!-- Prefixed with the model name - see hydrofoil.urdf's
+                 OdometryPublisher block for why: plain odom/base_link here
+                 would collide with every other vessel's frame_ids on the
+                 shared /tf topic. -->
+            <odom_frame>trauler_vessel/odom</odom_frame>
+            <robot_base_frame>trauler_vessel/base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <dimensions>3</dimensions>
+        </plugin>
+    </gazebo>
+</robot>

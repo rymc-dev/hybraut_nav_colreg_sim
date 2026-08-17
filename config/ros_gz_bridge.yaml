@@ -1,0 +1,114 @@
+# ROS -> GZ: drives the VelocityControl system on the "hydrofoil" model
+- ros_topic_name: "/cmd_vel"
+  gz_topic_name: "/model/hydrofoil/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+
+# GZ -> ROS: odometry published by the OdometryPublisher system
+- ros_topic_name: "/odom"
+  gz_topic_name: "/model/hydrofoil/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+
+# GZ -> ROS: sim clock, required for use_sim_time
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+# GZ -> ROS: tf
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/hydrofoil/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+# Controllable traffic vessels (urdf/<name>.urdf), spawned by
+# gz_sim.launch.py when spawn_vessels:=true. Each gets its own
+# /<name>/cmd_vel + /<name>/odom -- namespaced (unlike the ego's bare
+# /cmd_vel + /odom above) since there are several of these and they'd
+# otherwise collide. All the /tf entries can safely share the one ROS
+# "/tf" topic: tf2 is built to aggregate frames from multiple publishers,
+# it's only the GZ-side source topic that needs to be distinct per vessel.
+- ros_topic_name: "/hydrofoil_vessel/cmd_vel"
+  gz_topic_name: "/model/hydrofoil_vessel/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/hydrofoil_vessel/odom"
+  gz_topic_name: "/model/hydrofoil_vessel/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/hydrofoil_vessel/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/sail_boat_vessel/cmd_vel"
+  gz_topic_name: "/model/sail_boat_vessel/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/sail_boat_vessel/odom"
+  gz_topic_name: "/model/sail_boat_vessel/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/sail_boat_vessel/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/small_motor_boat_vessel/cmd_vel"
+  gz_topic_name: "/model/small_motor_boat_vessel/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/small_motor_boat_vessel/odom"
+  gz_topic_name: "/model/small_motor_boat_vessel/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/small_motor_boat_vessel/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/super_tanker_vessel/cmd_vel"
+  gz_topic_name: "/model/super_tanker_vessel/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/super_tanker_vessel/odom"
+  gz_topic_name: "/model/super_tanker_vessel/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/super_tanker_vessel/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/trauler_vessel/cmd_vel"
+  gz_topic_name: "/model/trauler_vessel/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: ROS_TO_GZ
+- ros_topic_name: "/trauler_vessel/odom"
+  gz_topic_name: "/model/trauler_vessel/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/tf"
+  gz_topic_name: "/model/trauler_vessel/pose"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: GZ_TO_ROS

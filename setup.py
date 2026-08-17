@@ -3,7 +3,7 @@ from glob import glob
 
 from setuptools import find_packages, setup
 
-package_name = 'hydrofoil_usv_description'
+package_name = 'hybraut_nav_colreg_sim'
 
 
 def models_data_files():
@@ -50,7 +50,7 @@ setup(
     zip_safe=True,
     maintainer='Ryan McKee',
     maintainer_email='ryanmckee47@icloud.com',
-    description='ROS2 hydrofoil description for simple high level complex environment control for hybraut_nav',
+    description='Gazebo COLREG scenario simulation environment (multi-vessel worlds, AIS bridge) for testing the hybraut_nav stack',
     license='MIT',
     extras_require={
         'test': [
@@ -59,6 +59,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'vessel_ais_bridge = hybraut_nav_colreg_sim.vessel_ais_bridge:main',
         ],
     },
 )

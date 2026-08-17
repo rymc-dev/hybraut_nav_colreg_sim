@@ -1,0 +1,57 @@
+# Mock AIS-style particulars for each traffic vessel model, published by
+# hybraut_nav_colreg_sim/vessel_ais_bridge.py onto /obstacles_state
+# (hybraut_nav/msg/ObstaclesState) -- the input hybraut_nav's real
+# risk_envelope_node actually expects (pairs with hybraut_nav's own
+# agent_state_bridge on the ego side).
+#
+# Real AIS splits ship data into two message types with very different
+# update rates: static/voyage data (Message 5 -- mmsi/type/dimensions)
+# broadcasts every ~6 minutes since it doesn't change during a voyage;
+# position/speed/heading/turn rate (Message 1/2/3) every few seconds since
+# it does. This file only mocks the *static* half. The *dynamic* half isn't
+# mocked at all -- it's real, live data read straight from each vessel's own
+# /<tag>/odom (bridged in config/ros_gz_bridge.yaml whenever
+# launch/gz_sim.launch.py is run with spawn_vessels:=true).
+#
+# `tag` must match the vessel's spawn name (see the `vessels` table in
+# launch/gz_sim.launch.py) -- it's both the ObstaclesState tag and the
+# /<tag>/odom topic this bridge subscribes to.
+#
+# `safety_radius` is a simple loa/2 + 2m-margin stand-in "ship domain"
+# radius, not a real COLREG/maritime domain model -- just enough to scale
+# sensibly with vessel size for riskenv to work with.
+vessels:
+  - tag: hydrofoil_vessel
+    mmsi: 235100001
+    type: hydrofoil
+    loa: 12.5
+    beam: 4.7
+    safety_radius: 8.25
+
+  - tag: sail_boat_vessel
+    mmsi: 235100002
+    type: sailing
+    loa: 8.0
+    beam: 2.56
+    safety_radius: 6.0
+
+  - tag: small_motor_boat_vessel
+    mmsi: 235100003
+    type: pleasure_craft
+    loa: 6.5
+    beam: 2.1
+    safety_radius: 5.25
+
+  - tag: super_tanker_vessel
+    mmsi: 235100004
+    type: tanker
+    loa: 90.0
+    beam: 14.0
+    safety_radius: 47.0
+
+  - tag: trauler_vessel
+    mmsi: 235100005
+    type: fishing
+    loa: 28.0
+    beam: 26.2
+    safety_radius: 16.0

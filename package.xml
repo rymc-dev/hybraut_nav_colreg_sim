@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>hydrofoil_usv_description</name>
+  <name>hybraut_nav_colreg_sim</name>
   <version>0.0.1</version>
-  <description>a urdf for hydrofoil control in simple environments</description>
+  <description>Gazebo COLREG scenario simulation environment (multi-vessel worlds, AIS bridge) for testing the hybraut_nav stack</description>
   <maintainer email="ryanmckee47@icloud.com">Ryan McKee</maintainer>
   <license>MIT</license>
 
@@ -13,6 +13,13 @@
   <exec_depend>ros_gz_bridge</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+
+  <!-- vessel_ais_bridge -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>hybraut_nav</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

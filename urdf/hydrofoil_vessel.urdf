@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- A second, independently-controllable hydrofoil-type vessel (distinct
+     model name from the real ego "hydrofoil" in hydrofoil.urdf) for use as
+     an active traffic contact in more complex COLREG scenarios. Same hull
+     mesh/geometry/mass/inertia as the ego - see hydrofoil.urdf for the
+     reasoning behind these specific numbers (the inertial origin/collision
+     origin/mass/inertia are one matched set computed together; don't tweak
+     one without the others). -->
+<robot name="hydrofoil_vessel">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <mass value="11700"/>
+            <inertia ixx="26256.75" ixy="0" ixz="0" iyy="157062.75" iyz="0" izz="173881.5"/>
+        </inertial>
+        <visual>
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/ef12.obj"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
+            <geometry>
+                <box size="12.5 4.7 2.2"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <gravity>false</gravity>
+    </gazebo>
+
+    <gazebo>
+        <static>false</static>
+        <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        </plugin>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <!-- Prefixed with the model name (unlike the ego's plain
+                 odom/base_link) so this doesn't collide with the ego's or
+                 the other traffic vessels' identical frame_ids on the
+                 shared /tf topic - see the note in hydrofoil.urdf's own
+                 OdometryPublisher block. -->
+            <odom_frame>hydrofoil_vessel/odom</odom_frame>
+            <robot_base_frame>hydrofoil_vessel/base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <dimensions>3</dimensions>
+        </plugin>
+    </gazebo>
+</robot>

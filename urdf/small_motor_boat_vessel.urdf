@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- Controllable small motor boat traffic vessel. See sail_boat_vessel.urdf
+     for the general method (mesh/box match models/small_motor_boat_vessel/
+     model.sdf; mass is a class-plausible estimate - ~2000 kg for a ~6.5m
+     motor boat; inertia is the solid-box approximation from that mass and
+     the collision box). -->
+<robot name="small_motor_boat_vessel">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0 0 -1.1" rpy="0 0 0"/>
+            <mass value="2000"/>
+            <inertia ixx="1541.67" ixy="0" ixz="0" iyy="7848.33" iyz="0" izz="7776.67"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 -1.1" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/small_motor_boat_vessel/meshes/SmallMotorBoat.obj" scale="0.005 0.005 0.005"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -1.1" rpy="0 0 0"/>
+            <geometry>
+                <box size="6.5 2.1 2.2"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="base_link">
+        <gravity>false</gravity>
+    </gazebo>
+
+    <gazebo>
+        <static>false</static>
+        <plugin filename="gz-sim-velocity-control-system" name="gz::sim::systems::VelocityControl">
+        </plugin>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+            <!-- Prefixed with the model name - see hydrofoil.urdf's
+                 OdometryPublisher block for why: plain odom/base_link here
+                 would collide with every other vessel's frame_ids on the
+                 shared /tf topic. -->
+            <odom_frame>small_motor_boat_vessel/odom</odom_frame>
+            <robot_base_frame>small_motor_boat_vessel/base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <dimensions>3</dimensions>
+        </plugin>
+    </gazebo>
+</robot>
