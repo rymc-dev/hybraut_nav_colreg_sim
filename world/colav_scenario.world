@@ -24,8 +24,14 @@
     </light>
 
     <!-- Same animated ocean surface as ocean.world -- see the comment there. -->
-    <include>
+    <!-- <include>
       <uri>model://ocean_waves</uri>
+    </include> -->
+
+    <!-- Static blue plate replacing the animated ocean surface above, for
+         performance. Swap back to the include above to restore animated waves. -->
+    <include>
+      <uri>model://ocean_plate</uri>
     </include>
 
     <!-- Static traffic vessels for COLREG/colav scenario testing (see

@@ -60,7 +60,7 @@ def generate_launch_description():
                      '/obstacles_state for hybraut_nav/risk_envelope_node')
 
     # The URDF's mesh uses a package:// URI, which sdformat rewrites to
-    # model://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/ef12.obj
+    # model://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/hydrofoil.obj
     # (package name + the rest of the path, unchanged). gz-sim only resolves
     # that against GZ_SIM_RESOURCE_PATH, which sourcing this package's
     # install/setup.bash does NOT populate on its own (unlike

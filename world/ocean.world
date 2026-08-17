@@ -28,8 +28,14 @@
          Visual-only: the hull has gravity disabled and is velocity-controlled
          (see urdf/hydrofoil.urdf), so it never physically rested on the old
          flat plane's collision surface either. -->
-    <include>
+    <!-- <include>
       <uri>model://ocean_waves</uri>
+    </include> -->
+
+    <!-- Static blue plate replacing the animated ocean surface above, for
+         performance. Swap back to the include above to restore animated waves. -->
+    <include>
+      <uri>model://ocean_plate</uri>
     </include>
 
   </world>
