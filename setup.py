@@ -45,6 +45,7 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
         (os.path.join('share', package_name, 'world'), glob('world/*.world')),
+        (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
     ] + models_data_files(),
     install_requires=['setuptools'],
     zip_safe=True,

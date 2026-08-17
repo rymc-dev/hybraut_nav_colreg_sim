@@ -88,6 +88,11 @@ class VesselAisBridge(Node):
             '/obstacles_state',
             qos_profile_system_default,
         )
+        self._obstacle_bounding_box_pub = self.create_publisher(
+            MarkerArray,
+            "/obstacle_bounding_boxes",
+            10
+        )
         self._safety_radius_pub = self.create_publisher(
             MarkerArray,
             "/safety_domain_markers",
@@ -123,6 +128,26 @@ class VesselAisBridge(Node):
         return m
 
     @staticmethod
+    def make_bounding_box(id_, x, y, z, orientation, loa, beam, height, frame="map"):
+        m = Marker()
+        m.header.frame_id = frame
+        m.ns = "obstacle_bb"
+        m.id = id_
+        m.type = Marker.CUBE
+        m.action = Marker.ADD
+        m.pose.position.x = x
+        m.pose.position.y = y
+        m.pose.position.z = z
+        m.pose.orientation = orientation
+        m.scale.x = loa
+        m.scale.y = beam
+        m.scale.z = height
+
+        m.color.r, m.color.g, m.color.b, m.color.a = 0.5, 0.0, 0.5, 0.4
+        m.lifetime = Duration(seconds=0).to_msg() # 0 = persists until replaced
+        return m
+         
+    @staticmethod
     def _load_vessels(config_path: str) -> list:
         with open(config_path) as f:
             data = yaml.safe_load(f) or {}
@@ -141,6 +166,7 @@ class VesselAisBridge(Node):
         obstacles_state.static_obstacles = []
         obstacles_state.dynamic_obstacles = []
         safety_domain_markers = MarkerArray()
+        obstacle_bounding_boxes = MarkerArray() 
 
         for idx, vessel in enumerate(self._vessels):
             odom = self._latest_odom.get(vessel['tag'])
@@ -154,13 +180,22 @@ class VesselAisBridge(Node):
             pos = odom.pose.pose.position
             safety_domain_markers.markers.append(
                 self.make_cylinder(
-                    idx, pos.x, pos.y, pos.z,
-                    vessel['safety_radius'], height=1.0, frame=frame_id,
+                    idx, pos.x, pos.y, 0.0,
+                    vessel['safety_radius'], height=5.0, frame=frame_id,
                 )
+            )
+
+            obstacle_bounding_boxes.markers.append(
+               self.make_bounding_box(
+                   idx, pos.x, pos.y, 0.0,
+                   odom.pose.pose.orientation, vessel['loa'], vessel['beam'],
+                   height=5.0, frame=frame_id
+               )
             )
 
         self._obstacles_state_pub.publish(obstacles_state)
         self._safety_radius_pub.publish(safety_domain_markers)
+        self._obstacle_bounding_box_pub.publish(obstacle_bounding_boxes)
 
     @staticmethod
     def _to_dynamic_obstacle(vessel: dict, odom: Odometry) -> DynamicObstacleState:
