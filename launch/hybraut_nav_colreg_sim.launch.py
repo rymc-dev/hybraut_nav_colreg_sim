@@ -102,6 +102,59 @@ def generate_launch_description():
                      'Not currently read by generate_new_virtual_waypoint, '
                      'kept in step with lateral_offset_distance.')
 
+    # risk_envelope_node's own dsf/time_of_interest - left at their
+    # library defaults (200.0m / 100.0s, tuned for open-ocean vessel
+    # separations) these swallow this scenario whole: the 5 traffic
+    # vessels are only ~30-150m apart, so riskenv.create_unsafe_set folds
+    # all of them into one unsafe-region blob spanning nearly the entire
+    # world, well past los_distance_threshold/safety_radius above - the
+    # agent ends up braking for a "wall" it can never route a
+    # lateral_offset_distance-sized detour around. Scaled down to match
+    # this launch file's other hydrofoil-scale thresholds instead.
+    dsf = LaunchConfiguration('dsf')
+    declare_dsf = DeclareLaunchArgument(
+        'dsf', default_value='60.0',
+        description='risk_envelope_node Distance Safety Factor (m) - how '
+                     'close (or how close to closing) a vessel needs to be '
+                     'before riskenv.create_unsafe_set folds it into the '
+                     'unsafe region. Kept a bit above los_distance_threshold '
+                     'so the region is "seen" (and can be routed around) '
+                     'before the agent is already inside it.')
+
+    time_of_interest = LaunchConfiguration('time_of_interest')
+    declare_time_of_interest = DeclareLaunchArgument(
+        'time_of_interest', default_value='30.0',
+        description='risk_envelope_node TCPA horizon (s) for its I3 '
+                     'filter - library default (100.0) pulls in traffic '
+                     "that's still minutes away at this scenario's speeds/"
+                     'distances, growing the unsafe region well beyond '
+                     'anything a single detour can clear.')
+
+    # risk_envelope_node: the missing wire between vessel_ais_bridge's
+    # /obstacles_state (gz_sim.launch.py, gated on publish_vessel_ais) and
+    # tactical_node's /hybraut_nav/riskenv + /hybraut_nav/maneuver_bias
+    # inputs (see vessel_ais_bridge.py's own docstring - it exists
+    # specifically to let this pipeline run end-to-end). Only meaningful
+    # alongside publish_vessel_ais:=true, same gate vessel_ais_bridge itself
+    # uses - without it there's no /obstacles_state to synchronise against,
+    # so this would just idle and warn on timeout.
+    risk_envelope_node = Node(
+        package='hybraut_nav',
+        executable='risk_envelope_node',
+        output='screen',
+        condition=IfCondition(publish_vessel_ais),
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            # same "how close is safe" quantity as tactical_node's own
+            # safety_radius below - reusing that launch arg keeps the
+            # agent's own safety domain consistent between the risk
+            # envelope that's built around it and the automaton routing
+            # around that envelope.
+            'safety_radius': safety_radius,
+            'dsf': dsf,
+            'time_of_interest': time_of_interest,
+        }])
+
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_share, 'launch', 'gz_sim.launch.py')),
@@ -143,6 +196,9 @@ def generate_launch_description():
         declare_los_distance_threshold,
         declare_lateral_offset_distance,
         declare_longitudinal_offset_distance,
+        declare_dsf,
+        declare_time_of_interest,
         gz_sim,
+        risk_envelope_node,
         tactical_immediate,
     ])
