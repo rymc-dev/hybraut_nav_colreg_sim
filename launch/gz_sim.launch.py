@@ -10,7 +10,8 @@ from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription,
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (Command, EnvironmentVariable,
-                                   LaunchConfiguration, PathJoinSubstitution)
+                                   LaunchConfiguration, PathJoinSubstitution,
+                                   PythonExpression)
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
@@ -78,6 +79,14 @@ def generate_launch_description():
     declare_world = DeclareLaunchArgument(
         'world', default_value='ocean.world',
         description='World file (in world/) to load, e.g. colav_scenario.world')
+
+    headless = LaunchConfiguration('headless')
+    declare_headless = DeclareLaunchArgument(
+        'headless', default_value='false',
+        description="Run gz sim with '-s' (server only, no GUI window) "
+                     'instead of the default interactive client+server. '
+                     'Useful for scripted/CI verification runs (log- or '
+                     'topic-based checks) that never need a rendered view.')
     world_path = PathJoinSubstitution([pkg_share, 'world', world])
 
     # Off by default: these are the ROS-controllable counterparts of the
@@ -195,8 +204,11 @@ def generate_launch_description():
         # world_path is a substitution (its value depends on the 'world'
         # launch arg), not a plain string, so it can't go through an
         # f-string -- concatenate it as a list of substitutions instead,
-        # which launch joins at resolve time.
-        launch_arguments={'gz_args': ['-r ', world_path]}.items())
+        # which launch joins at resolve time. '-s' (server only) is
+        # prepended when headless:=true - see declare_headless above.
+        launch_arguments={'gz_args': [
+            PythonExpression(['"-s " if "', headless, '" == "true" else ""']),
+            '-r ', world_path]}.items())
 
     robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -420,12 +432,18 @@ def generate_launch_description():
         MAP_MARGIN_M = 100.0
         xs = [ego_xy[0]] + [x for _, _, x, _, _, _ in vessel_table]
         ys = [ego_xy[1]] + [y for _, _, _, y, _, _ in vessel_table]
-        if _scenario_for_ego is not None and _scenario_for_ego.ego_goal_xy is not None:
-            goal_x, goal_y = scenario_loader.reanchor_xy(
-                _scenario_for_ego.ego_goal_xy, ego_xy, _scenario_for_ego.ego_initial_xy)
-            goal_radius = _scenario_for_ego.ego_goal_radius or 0.0
-            xs += [goal_x - goal_radius, goal_x + goal_radius]
-            ys += [goal_y - goal_radius, goal_y + goal_radius]
+        if _scenario_for_ego is not None:
+            # Every waypoint of a multi-waypoint route (see
+            # scenario_loader.ScenarioData.ego_goal_waypoints), not just the
+            # first -- otherwise a later leg could fall outside /map and
+            # strategy_node's own bounds check (_validate_goal) would reject
+            # it before tactical_node ever saw it.
+            for goal_xy, goal_radius in _scenario_for_ego.ego_goal_waypoints:
+                goal_x, goal_y = scenario_loader.reanchor_xy(
+                    goal_xy, ego_xy, _scenario_for_ego.ego_initial_xy)
+                goal_radius = goal_radius or 0.0
+                xs += [goal_x - goal_radius, goal_x + goal_radius]
+                ys += [goal_y - goal_radius, goal_y + goal_radius]
         map_center = ((min(xs) + max(xs)) / 2.0, (min(ys) + max(ys)) / 2.0)
         map_width_m = (max(xs) - min(xs)) + 2 * MAP_MARGIN_M
         map_height_m = (max(ys) - min(ys)) + 2 * MAP_MARGIN_M
@@ -449,6 +467,7 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         declare_world,
+        declare_headless,
         declare_spawn_vessels,
         declare_publish_vessel_ais,
         declare_scenario_file,

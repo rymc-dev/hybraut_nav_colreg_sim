@@ -52,20 +52,37 @@ class ScenarioObstacle:
 class ScenarioData:
     time_step_size: float
     obstacles: list                  # list[ScenarioObstacle]
-    ego_initial_xy: Optional[tuple]  # (x, y) of the <planningProblem>'s
+    ego_initial_xy: Optional[tuple]  # (x, y) of the first <planningProblem>'s
                                       # initialState, or None if absent --
                                       # the anchor reanchor() shifts against.
     ego_initial_yaw: Optional[float]  # radians, from the same initialState --
                                        # None iff ego_initial_xy is None.
-    ego_goal_xy: Optional[tuple]    # (x, y) center of the <planningProblem>'s
-                                     # goalState region, or None if absent.
-                                     # Raw scenario-frame coordinates, same as
-                                     # ego_initial_xy -- reanchor_xy() shifts
-                                     # this the same way reanchor() shifts
-                                     # obstacles, before sending it anywhere.
-    ego_goal_radius: Optional[float]  # half the goal region's smaller extent
-                                       # (rectangle/circle), or None for a
-                                       # bare point goal or no goalState.
+    ego_goal_waypoints: list          # list[((x, y), Optional[radius])], one
+                                       # entry per <planningProblem>/<goalState>
+                                       # in the file, in document order -- a
+                                       # multi-waypoint route for the ego to
+                                       # visit in sequence. Only the *first*
+                                       # <planningProblem> needs an
+                                       # <initialState> (that's what
+                                       # ego_initial_xy/ego_initial_yaw come
+                                       # from); a second/third/... one only
+                                       # needs its own <goalState> to add
+                                       # another leg. Radius is half the goal
+                                       # region's smaller extent (rectangle/
+                                       # circle), or None for a bare point
+                                       # goal. Empty if the file has no
+                                       # <planningProblem>/<goalState> at all.
+                                       # Raw scenario-frame coordinates --
+                                       # reanchor_xy() shifts each the same
+                                       # way reanchor() shifts obstacles,
+                                       # before sending any of them anywhere.
+    ego_goal_xy: Optional[tuple]     # (x, y) of ego_goal_waypoints[0], or
+                                      # None if it's empty -- kept for callers
+                                      # (e.g. gz_sim.launch.py's goal marker)
+                                      # that only ever care about a single
+                                      # final/first goal, not the whole route.
+    ego_goal_radius: Optional[float]  # radius of ego_goal_waypoints[0], or
+                                       # None -- see ego_goal_xy above.
 
 
 # CommonOcean <type> strings that denote an actual ship/vessel, as opposed
@@ -148,20 +165,29 @@ def parse_scenario(path: str) -> ScenarioData:
     if pp_initial is not None:
         # Same element shape as a dynamicObstacle/staticObstacle initialState
         # (position/point, orientation/exact, velocity/exact, time/exact), so
-        # reuse _parse_state instead of hand-parsing position only.
+        # reuse _parse_state instead of hand-parsing position only. find()
+        # (not findall()) deliberately only ever looks at the *first*
+        # <planningProblem> in the file -- see ego_goal_waypoints below for
+        # why a second/third/... one is legitimate (an extra route leg, not
+        # another ego to spawn).
         state = _parse_state(pp_initial)
         ego_initial_xy = (state.x, state.y)
         ego_initial_yaw = state.yaw
 
-    ego_goal_xy = None
-    ego_goal_radius = None
-    goal_position = root.find('planningProblem/goalState/position')
-    if goal_position is not None:
-        ego_goal_xy, ego_goal_radius = _parse_goal_position(goal_position)
+    # One route leg per <planningProblem>/<goalState> in the file, in
+    # document order -- see ego_goal_waypoints' own docstring above. A plain
+    # single-goal scenario (today's COLREG_*.xml files) has exactly one
+    # <planningProblem>, so this is a 1-element list, same as before.
+    ego_goal_waypoints = []
+    for goal_position in root.findall('planningProblem/goalState/position'):
+        ego_goal_waypoints.append(_parse_goal_position(goal_position))
+
+    ego_goal_xy, ego_goal_radius = ego_goal_waypoints[0] if ego_goal_waypoints else (None, None)
 
     return ScenarioData(time_step_size=time_step_size, obstacles=obstacles,
                          ego_initial_xy=ego_initial_xy,
                          ego_initial_yaw=ego_initial_yaw,
+                         ego_goal_waypoints=ego_goal_waypoints,
                          ego_goal_xy=ego_goal_xy,
                          ego_goal_radius=ego_goal_radius)
 

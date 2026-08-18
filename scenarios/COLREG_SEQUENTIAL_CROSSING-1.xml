@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <commonOcean timeStepSize="1.0" commonOceanVersion="2022a" author="hybraut_nav_colreg_sim" affiliation="hand-authored demo scenario, not real AIS data" source="synthetic" benchmarkID="COLREG_SEQUENTIAL_CROSSING-1" date="2026-08-18">
-  <!-- Sequential crossing encounters (Rule 15): ego heads east at 5 m/s from (0,0). Obstacle 112 crosses from the ego's starboard side, heading north at 6.66667 m/s from (150,-200), reaching the ego's track at (150,0) at t=30 - the first, early encounter. Obstacle 113 also crosses from the ego's starboard side, heading north at 3.33333 m/s from (450,-300), reaching the ego's track at (450,0) at t=90 - a second, later encounter well after the first is resolved. The two never overlap, so the give-way manoeuvre for the first must not create a new conflict with the second. -->
+  <!-- Sequential crossing encounters (Rule 15): ego heads east at 7.7 m/s (15 kn hydrofoil cruise) from (0,0). Obstacle 112 crosses from the ego's starboard side, heading north at 6.66667 m/s, reaching the ego's track at (150,0) at t=19.48s - the first, early encounter. Obstacle 113 also crosses from the ego's starboard side, heading north at 3.33333 m/s, reaching the ego's track at (450,0) at t=58.44s - a second, later encounter well after the first is resolved. The two never overlap, so the give-way manoeuvre for the first must not create a new conflict with the second. -->
   <!-- Synthetic scenario: small local coordinates centered near (0, 0), NOT a real geo-referenced location - lat/lon below are placeholders. See hybraut_nav_colreg_sim/scenario_loader.py for the parser. -->
   <location>
     <geoNameId>0</geoNameId>
@@ -34,7 +34,7 @@
       <position>
         <point>
           <x>150.0000</x>
-          <y>-200.0000</y>
+          <y>-129.8701</y>
         </point>
       </position>
       <orientation>
@@ -52,7 +52,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>-166.6667</y>
+            <y>-96.5368</y>
           </point>
         </position>
         <orientation>
@@ -69,7 +69,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>-133.3333</y>
+            <y>-63.2034</y>
           </point>
         </position>
         <orientation>
@@ -86,7 +86,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>-100.0000</y>
+            <y>-29.8701</y>
           </point>
         </position>
         <orientation>
@@ -103,7 +103,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>-66.6667</y>
+            <y>3.4632</y>
           </point>
         </position>
         <orientation>
@@ -120,7 +120,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>-33.3333</y>
+            <y>36.7966</y>
           </point>
         </position>
         <orientation>
@@ -137,7 +137,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>0.0000</y>
+            <y>70.1299</y>
           </point>
         </position>
         <orientation>
@@ -154,7 +154,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>33.3333</y>
+            <y>103.4632</y>
           </point>
         </position>
         <orientation>
@@ -171,7 +171,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>66.6667</y>
+            <y>136.7966</y>
           </point>
         </position>
         <orientation>
@@ -188,7 +188,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>100.0000</y>
+            <y>170.1299</y>
           </point>
         </position>
         <orientation>
@@ -205,7 +205,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>133.3333</y>
+            <y>203.4632</y>
           </point>
         </position>
         <orientation>
@@ -222,7 +222,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>166.6667</y>
+            <y>236.7966</y>
           </point>
         </position>
         <orientation>
@@ -239,7 +239,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>200.0000</y>
+            <y>270.1299</y>
           </point>
         </position>
         <orientation>
@@ -256,7 +256,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>233.3333</y>
+            <y>303.4632</y>
           </point>
         </position>
         <orientation>
@@ -273,7 +273,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>266.6667</y>
+            <y>336.7966</y>
           </point>
         </position>
         <orientation>
@@ -290,7 +290,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>300.0000</y>
+            <y>370.1299</y>
           </point>
         </position>
         <orientation>
@@ -307,7 +307,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>333.3333</y>
+            <y>403.4632</y>
           </point>
         </position>
         <orientation>
@@ -324,7 +324,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>366.6667</y>
+            <y>436.7966</y>
           </point>
         </position>
         <orientation>
@@ -341,7 +341,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>400.0000</y>
+            <y>470.1299</y>
           </point>
         </position>
         <orientation>
@@ -358,7 +358,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>433.3333</y>
+            <y>503.4632</y>
           </point>
         </position>
         <orientation>
@@ -375,7 +375,7 @@
         <position>
           <point>
             <x>150.0000</x>
-            <y>466.6667</y>
+            <y>536.7966</y>
           </point>
         </position>
         <orientation>
@@ -403,7 +403,7 @@
       <position>
         <point>
           <x>450.0000</x>
-          <y>-300.0000</y>
+          <y>-194.8052</y>
         </point>
       </position>
       <orientation>
@@ -421,7 +421,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-283.3333</y>
+            <y>-178.1385</y>
           </point>
         </position>
         <orientation>
@@ -438,7 +438,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-266.6667</y>
+            <y>-161.4719</y>
           </point>
         </position>
         <orientation>
@@ -455,7 +455,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-250.0000</y>
+            <y>-144.8052</y>
           </point>
         </position>
         <orientation>
@@ -472,7 +472,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-233.3333</y>
+            <y>-128.1385</y>
           </point>
         </position>
         <orientation>
@@ -489,7 +489,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-216.6667</y>
+            <y>-111.4719</y>
           </point>
         </position>
         <orientation>
@@ -506,7 +506,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-200.0000</y>
+            <y>-94.8052</y>
           </point>
         </position>
         <orientation>
@@ -523,7 +523,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-183.3333</y>
+            <y>-78.1385</y>
           </point>
         </position>
         <orientation>
@@ -540,7 +540,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-166.6667</y>
+            <y>-61.4719</y>
           </point>
         </position>
         <orientation>
@@ -557,7 +557,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-150.0000</y>
+            <y>-44.8052</y>
           </point>
         </position>
         <orientation>
@@ -574,7 +574,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-133.3333</y>
+            <y>-28.1385</y>
           </point>
         </position>
         <orientation>
@@ -591,7 +591,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-116.6667</y>
+            <y>-11.4719</y>
           </point>
         </position>
         <orientation>
@@ -608,7 +608,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-100.0000</y>
+            <y>5.1948</y>
           </point>
         </position>
         <orientation>
@@ -625,7 +625,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-83.3333</y>
+            <y>21.8615</y>
           </point>
         </position>
         <orientation>
@@ -642,7 +642,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-66.6667</y>
+            <y>38.5281</y>
           </point>
         </position>
         <orientation>
@@ -659,7 +659,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-50.0000</y>
+            <y>55.1948</y>
           </point>
         </position>
         <orientation>
@@ -676,7 +676,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-33.3333</y>
+            <y>71.8615</y>
           </point>
         </position>
         <orientation>
@@ -693,7 +693,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>-16.6667</y>
+            <y>88.5281</y>
           </point>
         </position>
         <orientation>
@@ -710,7 +710,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>0.0000</y>
+            <y>105.1948</y>
           </point>
         </position>
         <orientation>
@@ -727,7 +727,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>16.6667</y>
+            <y>121.8615</y>
           </point>
         </position>
         <orientation>
@@ -744,7 +744,7 @@
         <position>
           <point>
             <x>450.0000</x>
-            <y>33.3333</y>
+            <y>138.5281</y>
           </point>
         </position>
         <orientation>
@@ -774,7 +774,7 @@
         <exact>0</exact>
       </time>
       <velocity>
-        <exact>5.00000</exact>
+        <exact>7.70000</exact>
       </velocity>
     </initialState>
     <goalState>
@@ -794,8 +794,8 @@
         <intervalEnd>0.1000000</intervalEnd>
       </orientation>
       <time>
-        <intervalStart>95</intervalStart>
-        <intervalEnd>120</intervalEnd>
+        <intervalStart>60</intervalStart>
+        <intervalEnd>85</intervalEnd>
       </time>
     </goalState>
   </planningProblem>

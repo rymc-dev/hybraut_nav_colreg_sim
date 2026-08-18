@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <commonOcean timeStepSize="1.0" commonOceanVersion="2022a" author="hybraut_nav_colreg_sim" affiliation="hand-authored demo scenario, not real AIS data" source="synthetic" benchmarkID="COLREG_CROSSING_OVERTAKING-1" date="2026-08-18">
-  <!-- Crossing + overtaking together (Rules 13 and 15): ego heads east at 5 m/s from (0,0). Obstacle 110 crosses from the ego's starboard side, heading north at 6.66667 m/s from (225,-300), reaching the ego's track at (225,0) at t=45 - a Rule 15 give-way encounter. Obstacle 111 is a slow vessel dead ahead on the ego's own track, heading east at 2 m/s from (200,0) - the faster ego closes on and must overtake it (Rule 13, which takes precedence over Rule 15) around t=67. Each encounter must be classified under its own rule rather than the other's. -->
+  <!-- Crossing + overtaking together (Rules 13 and 15): ego heads east at 7.7 m/s (15 kn hydrofoil cruise) from (0,0). Obstacle 110 crosses from the ego's starboard side, heading north at 6.66667 m/s, reaching the ego's track at (225,0) at t=29.22s - a Rule 15 give-way encounter. Obstacle 111 is a slow vessel dead ahead on the ego's own track, heading east at 2 m/s from (200,0) - the faster ego closes on and must overtake it (Rule 13, which takes precedence over Rule 15) around t=39. Each encounter must be classified under its own rule rather than the other's. -->
   <!-- Synthetic scenario: small local coordinates centered near (0, 0), NOT a real geo-referenced location - lat/lon below are placeholders. See hybraut_nav_colreg_sim/scenario_loader.py for the parser. -->
   <location>
     <geoNameId>0</geoNameId>
@@ -34,7 +34,7 @@
       <position>
         <point>
           <x>225.0000</x>
-          <y>-300.0000</y>
+          <y>-194.8052</y>
         </point>
       </position>
       <orientation>
@@ -52,7 +52,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-266.6667</y>
+            <y>-161.4719</y>
           </point>
         </position>
         <orientation>
@@ -69,7 +69,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-233.3333</y>
+            <y>-128.1385</y>
           </point>
         </position>
         <orientation>
@@ -86,7 +86,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-200.0000</y>
+            <y>-94.8052</y>
           </point>
         </position>
         <orientation>
@@ -103,7 +103,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-166.6667</y>
+            <y>-61.4719</y>
           </point>
         </position>
         <orientation>
@@ -120,7 +120,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-133.3333</y>
+            <y>-28.1385</y>
           </point>
         </position>
         <orientation>
@@ -137,7 +137,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-100.0000</y>
+            <y>5.1948</y>
           </point>
         </position>
         <orientation>
@@ -154,7 +154,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-66.6667</y>
+            <y>38.5281</y>
           </point>
         </position>
         <orientation>
@@ -171,7 +171,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>-33.3333</y>
+            <y>71.8615</y>
           </point>
         </position>
         <orientation>
@@ -188,7 +188,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>0.0000</y>
+            <y>105.1948</y>
           </point>
         </position>
         <orientation>
@@ -205,7 +205,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>33.3333</y>
+            <y>138.5281</y>
           </point>
         </position>
         <orientation>
@@ -222,7 +222,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>66.6667</y>
+            <y>171.8615</y>
           </point>
         </position>
         <orientation>
@@ -239,7 +239,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>100.0000</y>
+            <y>205.1948</y>
           </point>
         </position>
         <orientation>
@@ -256,7 +256,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>133.3333</y>
+            <y>238.5281</y>
           </point>
         </position>
         <orientation>
@@ -273,7 +273,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>166.6667</y>
+            <y>271.8615</y>
           </point>
         </position>
         <orientation>
@@ -290,7 +290,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>200.0000</y>
+            <y>305.1948</y>
           </point>
         </position>
         <orientation>
@@ -307,7 +307,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>233.3333</y>
+            <y>338.5281</y>
           </point>
         </position>
         <orientation>
@@ -324,7 +324,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>266.6667</y>
+            <y>371.8615</y>
           </point>
         </position>
         <orientation>
@@ -341,7 +341,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>300.0000</y>
+            <y>405.1948</y>
           </point>
         </position>
         <orientation>
@@ -358,7 +358,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>333.3333</y>
+            <y>438.5281</y>
           </point>
         </position>
         <orientation>
@@ -375,7 +375,7 @@
         <position>
           <point>
             <x>225.0000</x>
-            <y>366.6667</y>
+            <y>471.8615</y>
           </point>
         </position>
         <orientation>
@@ -774,7 +774,7 @@
         <exact>0</exact>
       </time>
       <velocity>
-        <exact>5.00000</exact>
+        <exact>7.70000</exact>
       </velocity>
     </initialState>
     <goalState>
@@ -794,8 +794,8 @@
         <intervalEnd>0.1000000</intervalEnd>
       </orientation>
       <time>
-        <intervalStart>95</intervalStart>
-        <intervalEnd>120</intervalEnd>
+        <intervalStart>60</intervalStart>
+        <intervalEnd>85</intervalEnd>
       </time>
     </goalState>
   </planningProblem>

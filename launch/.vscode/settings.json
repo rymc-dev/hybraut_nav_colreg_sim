@@ -1,0 +1,13 @@
+{
+    "ROS2.distro": "jazzy",
+    "python.autoComplete.extraPaths": [
+        "/home/ryan/ros2_ws/install/hybraut_nav_colreg_sim/lib/python3.12/site-packages",
+        "/home/ryan/ros2_ws/install/hybraut_nav/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/ryan/ros2_ws/install/hybraut_nav_colreg_sim/lib/python3.12/site-packages",
+        "/home/ryan/ros2_ws/install/hybraut_nav/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ]
+}

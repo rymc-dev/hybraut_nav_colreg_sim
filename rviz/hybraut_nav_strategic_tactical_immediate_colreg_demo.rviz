@@ -1,0 +1,813 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+      Splitter Ratio: 0.5
+    Tree Height: 383
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Expanded:
+      - /2D Goal Pose1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz_common/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 100
+      Class: rviz_default_plugins/Grid
+      Color: 255; 255; 255
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 0.7
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: true
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_updates
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Angle Tolerance: 0.30000001192092896
+      Class: rviz_default_plugins/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 100
+      Name: "shared input: /odom"
+      Position Tolerance: 2
+      Shape:
+        Alpha: 1
+        Axes Length: 4
+        Axes Radius: 0.25
+        Color: 85; 170; 255
+        Head Length: 1.5
+        Head Radius: 0.6
+        Shaft Length: 4
+        Shaft Radius: 0.25
+        Value: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /odom
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: "strategy_node: planned_path"
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/planner/plan
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz_default_plugins/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: "strategy_node: goal_pose"
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/planner/goal_pose
+      Value: true
+    - Class: rviz_common/Group
+      Displays:
+        - Alpha: 1
+          Class: rviz_default_plugins/RobotModel
+          Collision Enabled: false
+          Description File: ""
+          Description Source: Topic
+          Description Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /hydrofoil_vessel/robot_description
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Mass Properties:
+            Inertia: false
+            Mass: false
+          Name: "traffic_fleet: hydrofoil_vessel"
+          TF Prefix: hydrofoil_vessel
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Angle Tolerance: 0.30000001192092896
+          Class: rviz_default_plugins/Odometry
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: false
+          Enabled: true
+          Keep: 20
+          Name: "traffic_fleet: hydrofoil_vessel/odom"
+          Position Tolerance: 2
+          Shape:
+            Alpha: 1
+            Axes Length: 4
+            Axes Radius: 0.25
+            Color: 255; 165; 0
+            Head Length: 1.5
+            Head Radius: 0.6
+            Shaft Length: 4
+            Shaft Radius: 0.25
+            Value: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /hydrofoil_vessel/odom
+          Value: true
+        - Alpha: 1
+          Class: rviz_default_plugins/RobotModel
+          Collision Enabled: false
+          Description File: ""
+          Description Source: Topic
+          Description Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sail_boat_vessel/robot_description
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Mass Properties:
+            Inertia: false
+            Mass: false
+          Name: "traffic_fleet: sail_boat_vessel"
+          TF Prefix: sail_boat_vessel
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Angle Tolerance: 0.30000001192092896
+          Class: rviz_default_plugins/Odometry
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: false
+          Enabled: true
+          Keep: 20
+          Name: "traffic_fleet: sail_boat_vessel/odom"
+          Position Tolerance: 2
+          Shape:
+            Alpha: 1
+            Axes Length: 2.5
+            Axes Radius: 0.2
+            Color: 0; 255; 255
+            Head Length: 1
+            Head Radius: 0.4
+            Shaft Length: 2.5
+            Shaft Radius: 0.2
+            Value: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sail_boat_vessel/odom
+          Value: true
+        - Alpha: 1
+          Class: rviz_default_plugins/RobotModel
+          Collision Enabled: false
+          Description File: ""
+          Description Source: Topic
+          Description Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /small_motor_boat_vessel/robot_description
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Mass Properties:
+            Inertia: false
+            Mass: false
+          Name: "traffic_fleet: small_motor_boat_vessel"
+          TF Prefix: small_motor_boat_vessel
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Angle Tolerance: 0.30000001192092896
+          Class: rviz_default_plugins/Odometry
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: false
+          Enabled: true
+          Keep: 20
+          Name: "traffic_fleet: small_motor_boat_vessel/odom"
+          Position Tolerance: 2
+          Shape:
+            Alpha: 1
+            Axes Length: 2
+            Axes Radius: 0.15
+            Color: 255; 255; 0
+            Head Length: 0.8
+            Head Radius: 0.3
+            Shaft Length: 2
+            Shaft Radius: 0.15
+            Value: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /small_motor_boat_vessel/odom
+          Value: true
+        - Alpha: 1
+          Class: rviz_default_plugins/RobotModel
+          Collision Enabled: false
+          Description File: ""
+          Description Source: Topic
+          Description Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /trauler_vessel/robot_description
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Mass Properties:
+            Inertia: false
+            Mass: false
+          Name: "traffic_fleet: trauler_vessel"
+          TF Prefix: trauler_vessel
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Angle Tolerance: 0.30000001192092896
+          Class: rviz_default_plugins/Odometry
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: false
+          Enabled: true
+          Keep: 20
+          Name: "traffic_fleet: trauler_vessel/odom"
+          Position Tolerance: 2
+          Shape:
+            Alpha: 1
+            Axes Length: 8
+            Axes Radius: 0.5
+            Color: 255; 0; 255
+            Head Length: 3
+            Head Radius: 1.2
+            Shaft Length: 8
+            Shaft Radius: 0.5
+            Value: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /trauler_vessel/odom
+          Value: true
+        - Alpha: 1
+          Class: rviz_default_plugins/RobotModel
+          Collision Enabled: false
+          Description File: ""
+          Description Source: Topic
+          Description Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /super_tanker_vessel/robot_description
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+            base_link:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+              Value: true
+          Mass Properties:
+            Inertia: false
+            Mass: false
+          Name: "traffic_fleet: super_tanker_vessel"
+          TF Prefix: super_tanker_vessel
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Angle Tolerance: 0.30000001192092896
+          Class: rviz_default_plugins/Odometry
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: false
+          Enabled: true
+          Keep: 20
+          Name: "traffic_fleet: super_tanker_vessel/odom"
+          Position Tolerance: 2
+          Shape:
+            Alpha: 1
+            Axes Length: 12
+            Axes Radius: 0.8
+            Color: 255; 255; 255
+            Head Length: 4
+            Head Radius: 1.6
+            Shaft Length: 12
+            Shaft Radius: 0.8
+            Value: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /super_tanker_vessel/odom
+          Value: true
+      Enabled: true
+      Name: "Traffic Vessels"
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: "risk_assessment_node: obstacle_safety_domains"
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/riskenv_markers
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: "risk_assessment_node: obstacle_bounding_boxes"
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /obstacle_bounding_boxes
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/Polygon
+      Color: 255; 25; 0
+      Enabled: true
+      Name: "risk_assessment_node: /riskenv"
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/riskenv
+      Value: true
+    - Alpha: 1
+      Axes Length: 4
+      Axes Radius: 0.25
+      Class: rviz_default_plugins/Pose
+      Color: 0; 255; 0
+      Enabled: true
+      Head Length: 1.5
+      Head Radius: 0.5
+      Name: "tactical_node: waypoint_reached"
+      Shaft Length: 4
+      Shaft Radius: 0.25
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/tactical_node/waypoint_reached
+      Value: true
+    - Alpha: 1
+      Axes Length: 5
+      Axes Radius: 0.30000001192092896
+      Class: rviz_default_plugins/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 2
+      Head Radius: 0.7
+      Name: "tactical_node: continuous_dynamics"
+      Shaft Length: 5
+      Shaft Radius: 0.30000001192092896
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/tactical_node/continous_dynamics_pose
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: "tactical_node: virtual_waypoint_markers"
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/tactical_node/virtual_waypoint_markers
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: "tactical_node: waypoint_markers"
+      Namespaces:
+        {}
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /hybraut_nav/tactical_node/waypoint_markers
+      Value: true
+    - Alpha: 1
+      Angular Arrow Scale: 3
+      Angular Color: 204; 204; 51
+      Arrow Width: 0.75
+      Class: rviz_default_plugins/TwistStamped
+      Enabled: true
+      Hide Small Values: true
+      History Length: 1
+      Linear Arrow Scale: 3
+      Linear Color: 204; 51; 51
+      Name: "immediate_node: /cmd_vel"
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /cmd_vel
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: "risk_assessment_node: obstacle_safety_domains"
+      Namespaces:
+        safety_domains: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /safety_domain_markers
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+    - Class: rviz_default_plugins/SetInitialPose
+      Covariance x: 0.25
+      Covariance y: 0.25
+      Covariance yaw: 0.06853891909122467
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /goal_pose
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/XYOrbit
+      Distance: 71.21564483642578
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: -1.14337158203125
+        Y: -0.8946065902709961
+        Z: -1.9073486328125e-06
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.2953980565071106
+      Target Frame: hydrofoil_vessel/base_link
+      Value: XYOrbit (rviz_default_plugins)
+      Yaw: 3.255396842956543
+    Saved:
+      - Class: rviz_default_plugins/XYOrbit
+        Distance: 71.21564483642578
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: -1.14337158203125
+          Y: -0.8946065902709961
+          Z: -1.9073486328125e-06
+        Focal Shape Fixed Size: false
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: hybraut_nav_orbit_view
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.1903981864452362
+        Target Frame: hydrofoil_vessel/base_link
+        Value: XYOrbit (rviz_default_plugins)
+        Yaw: 3.3453962802886963
+      - Angle: -1.579999327659607
+        Class: rviz_default_plugins/TopDownOrtho
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Invert Z Axis: false
+        Name: hybraut_nav_top_down_view
+        Near Clip Distance: 0.009999999776482582
+        Scale: 2.7850093841552734
+        Target Frame: hydrofoil_vessel/base_link
+        Value: TopDownOrtho (rviz_default_plugins)
+        X: -1.14337158203125
+        Y: -0.8946065902709961
+      - Class: rviz_default_plugins/Orbit
+        Distance: 31.059343338012695
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 21.970623016357422
+          Y: -6.787055969238281
+          Z: 11.12491512298584
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: hybraut_nav_rear_view
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.3147972822189331
+        Target Frame: hydrofoil_vessel/base_link
+        Value: Orbit (rviz_default_plugins)
+        Yaw: 5.977402210235596
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1131
+  Hide Left Dock: false
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd00000001000000000000045d0000040dfc0200000005fb000000100044006900730070006c006100790073010000003f0000020d000000cc00fffffffb0000001200530065006c0065006300740069006f006e000000032e000000aa0000005d00fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000355000000930000005d00fffffffb0000000a005600690065007700730100000252000001fa000000a900fffffffb0000000800540069006d006500000003c8000000840000003c00ffffff000002db0000040d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1854
+  X: 66
+  Y: 32

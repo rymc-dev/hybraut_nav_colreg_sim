@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <commonOcean timeStepSize="1.0" commonOceanVersion="2022a" author="hybraut_nav_colreg_sim" affiliation="hand-authored demo scenario, not real AIS data" source="synthetic" benchmarkID="COLREG_OVERTAKING-1" date="2026-08-18">
-  <!-- Overtaking (Rule 13): ego heads east at 7 m/s from (0,0), faster than the obstacle ahead on the same heading (east at 3 m/s from (300,0)) - ego closes at 4 m/s and must keep clear of the slower vessel it is overtaking from astern. -->
+  <!-- Overtaking (Rule 13): ego heads east at 7.7 m/s (15 kn hydrofoil cruise) from (0,0), faster than the obstacle ahead on the same heading (east at 3 m/s from (300,0)) - ego closes at 4.7 m/s and must keep clear of the slower vessel it is overtaking from astern. -->
   <!-- Synthetic scenario: small local coordinates centered near (0, 0), NOT a real geo-referenced location - lat/lon below are placeholders. See hybraut_nav_colreg_sim/scenario_loader.py for the parser. -->
   <location>
     <geoNameId>0</geoNameId>
@@ -405,7 +405,7 @@
         <exact>0</exact>
       </time>
       <velocity>
-        <exact>7.00000</exact>
+        <exact>7.70000</exact>
       </velocity>
     </initialState>
     <goalState>
@@ -425,8 +425,8 @@
         <intervalEnd>0.1000000</intervalEnd>
       </orientation>
       <time>
-        <intervalStart>95</intervalStart>
-        <intervalEnd>120</intervalEnd>
+        <intervalStart>86</intervalStart>
+        <intervalEnd>111</intervalEnd>
       </time>
     </goalState>
   </planningProblem>

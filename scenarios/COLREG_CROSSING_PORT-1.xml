@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <commonOcean timeStepSize="1.0" commonOceanVersion="2022a" author="hybraut_nav_colreg_sim" affiliation="hand-authored demo scenario, not real AIS data" source="synthetic" benchmarkID="COLREG_CROSSING_PORT-1" date="2026-08-18">
-  <!-- Crossing (Rule 15), obstacle on the ego's port side: ego heads north at 5 m/s from (0,0); obstacle heads east from (-400,300) at ~6.67 m/s, reaching the ego's track (x=0) at t=60s, the same time the ego reaches y=300 - converging crossing course, mirrored from COLREG_CROSSING_STARBOARD-1. -->
+  <!-- Crossing (Rule 15), obstacle on the ego's port side: ego heads north at 7.7 m/s (15 kn hydrofoil cruise) from (0,0); obstacle heads east at ~6.67 m/s, reaching the ego's track (x=0) at t=38.96s, the same time the ego reaches y=300 - converging crossing course, mirrored from COLREG_CROSSING_STARBOARD-1. -->
   <!-- Synthetic scenario: small local coordinates centered near (0, 0), NOT a real geo-referenced location - lat/lon below are placeholders. See hybraut_nav_colreg_sim/scenario_loader.py for the parser. -->
   <location>
     <geoNameId>0</geoNameId>
@@ -33,7 +33,7 @@
     <initialState>
       <position>
         <point>
-          <x>-400.0000</x>
+          <x>-259.7403</x>
           <y>300.0000</y>
         </point>
       </position>
@@ -51,7 +51,7 @@
       <state>
         <position>
           <point>
-            <x>-366.6667</x>
+            <x>-226.4070</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -68,7 +68,7 @@
       <state>
         <position>
           <point>
-            <x>-333.3333</x>
+            <x>-193.0736</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -85,7 +85,7 @@
       <state>
         <position>
           <point>
-            <x>-300.0000</x>
+            <x>-159.7403</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -102,7 +102,7 @@
       <state>
         <position>
           <point>
-            <x>-266.6667</x>
+            <x>-126.4070</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -119,7 +119,7 @@
       <state>
         <position>
           <point>
-            <x>-233.3333</x>
+            <x>-93.0736</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -136,7 +136,7 @@
       <state>
         <position>
           <point>
-            <x>-200.0000</x>
+            <x>-59.7403</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -153,7 +153,7 @@
       <state>
         <position>
           <point>
-            <x>-166.6667</x>
+            <x>-26.4070</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -170,7 +170,7 @@
       <state>
         <position>
           <point>
-            <x>-133.3333</x>
+            <x>6.9264</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -187,7 +187,7 @@
       <state>
         <position>
           <point>
-            <x>-100.0000</x>
+            <x>40.2597</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -204,7 +204,7 @@
       <state>
         <position>
           <point>
-            <x>-66.6667</x>
+            <x>73.5930</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -221,7 +221,7 @@
       <state>
         <position>
           <point>
-            <x>-33.3333</x>
+            <x>106.9264</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -238,7 +238,7 @@
       <state>
         <position>
           <point>
-            <x>0.0000</x>
+            <x>140.2597</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -255,7 +255,7 @@
       <state>
         <position>
           <point>
-            <x>33.3333</x>
+            <x>173.5930</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -272,7 +272,7 @@
       <state>
         <position>
           <point>
-            <x>66.6667</x>
+            <x>206.9264</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -289,7 +289,7 @@
       <state>
         <position>
           <point>
-            <x>100.0000</x>
+            <x>240.2597</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -306,7 +306,7 @@
       <state>
         <position>
           <point>
-            <x>133.3333</x>
+            <x>273.5930</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -323,7 +323,7 @@
       <state>
         <position>
           <point>
-            <x>166.6667</x>
+            <x>306.9264</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -340,7 +340,7 @@
       <state>
         <position>
           <point>
-            <x>200.0000</x>
+            <x>340.2597</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -357,7 +357,7 @@
       <state>
         <position>
           <point>
-            <x>233.3333</x>
+            <x>373.5930</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -374,7 +374,7 @@
       <state>
         <position>
           <point>
-            <x>266.6667</x>
+            <x>406.9264</x>
             <y>300.0000</y>
           </point>
         </position>
@@ -405,7 +405,7 @@
         <exact>0</exact>
       </time>
       <velocity>
-        <exact>5.00000</exact>
+        <exact>7.70000</exact>
       </velocity>
     </initialState>
     <goalState>
@@ -425,8 +425,8 @@
         <intervalEnd>1.6707963</intervalEnd>
       </orientation>
       <time>
-        <intervalStart>95</intervalStart>
-        <intervalEnd>120</intervalEnd>
+        <intervalStart>60</intervalStart>
+        <intervalEnd>85</intervalEnd>
       </time>
     </goalState>
   </planningProblem>

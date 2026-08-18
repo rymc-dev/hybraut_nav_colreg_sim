@@ -16,7 +16,7 @@
         <visual>
             <origin xyz="-6.15 0 -3.375" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/ef12.obj"/>
+                <mesh filename="package://hybraut_nav_colreg_sim/models/hydrofoil_vessel/meshes/hydrofoil.obj"/>
             </geometry>
         </visual>
         <collision>

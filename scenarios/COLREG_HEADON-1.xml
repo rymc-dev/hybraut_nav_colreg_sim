@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <commonOcean timeStepSize="1.0" commonOceanVersion="2022a" author="hybraut_nav_colreg_sim" affiliation="hand-authored demo scenario, not real AIS data" source="synthetic" benchmarkID="COLREG_HEADON-1" date="2026-08-18">
-  <!-- Head-on (Rule 14): ego heads east at 6 m/s from (0,0); obstacle heads west at 6 m/s from (600,5) on a reciprocal course, closing at 12 m/s - meet near the midpoint around t=50s. -->
+  <!-- Head-on (Rule 14): ego heads east at 7.7 m/s (15 kn hydrofoil cruise) from (0,0); obstacle heads west at 6 m/s from (600,5) on a reciprocal course, closing at 13.7 m/s - meet around t=43.8s. -->
   <!-- Synthetic scenario: small local coordinates centered near (0, 0), NOT a real geo-referenced location - lat/lon below are placeholders. See hybraut_nav_colreg_sim/scenario_loader.py for the parser. -->
   <location>
     <geoNameId>0</geoNameId>
@@ -405,7 +405,7 @@
         <exact>0</exact>
       </time>
       <velocity>
-        <exact>6.00000</exact>
+        <exact>7.70000</exact>
       </velocity>
     </initialState>
     <goalState>
@@ -425,8 +425,8 @@
         <intervalEnd>0.1000000</intervalEnd>
       </orientation>
       <time>
-        <intervalStart>95</intervalStart>
-        <intervalEnd>120</intervalEnd>
+        <intervalStart>73</intervalStart>
+        <intervalEnd>98</intervalEnd>
       </time>
     </goalState>
   </planningProblem>
