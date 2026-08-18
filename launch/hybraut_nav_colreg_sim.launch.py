@@ -7,7 +7,8 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetE
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (Command, EnvironmentVariable,
-                                   LaunchConfiguration, PathJoinSubstitution)
+                                   LaunchConfiguration, PathJoinSubstitution,
+                                   PythonExpression)
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from launch_ros.substitutions import FindPackageShare
@@ -51,6 +52,20 @@ def generate_launch_description():
                      'traffic vessels onto /obstacles_state. Only '
                      'meaningful alongside spawn_vessels:=true.')
 
+    scenario_file = LaunchConfiguration('scenario_file')
+    declare_scenario_file = DeclareLaunchArgument(
+        'scenario_file', default_value='',
+        description='Path to a CommonOcean scenario XML (see scenarios/) to '
+                     'drive the traffic-vessel fleet from, instead of '
+                     "gz_sim.launch.py's hardcoded default layout. Empty "
+                     '(default) keeps the existing 5-vessel fleet unchanged.')
+
+    scenario_seed = LaunchConfiguration('scenario_seed')
+    declare_scenario_seed = DeclareLaunchArgument(
+        'scenario_seed', default_value='',
+        description="Seed for scenario_file's random vessel-type "
+                     'assignment, for reproducible runs.')
+
     # --- hybraut_nav_tactical_immediate.launch.py passthrough, sized for
     # the hydrofoil cruising at ~15 kn (~7.7 m/s) rather than that launch
     # file's TurtleBot3-scale defaults. ---
@@ -79,7 +94,7 @@ def generate_launch_description():
 
     los_distance_threshold = LaunchConfiguration('los_distance_threshold')
     declare_los_distance_threshold = DeclareLaunchArgument(
-        'los_distance_threshold', default_value='40.0',
+        'los_distance_threshold', default_value='200.0',
         description='colav_automaton los_distance_threshold (m) - LOS '
                      'guidance lookahead. ~5s of travel at 15 kn (and 2x '
                      'safety_radius), giving the line-of-sight controller '
@@ -88,7 +103,7 @@ def generate_launch_description():
 
     lateral_offset_distance = LaunchConfiguration('lateral_offset_distance')
     declare_lateral_offset_distance = DeclareLaunchArgument(
-        'lateral_offset_distance', default_value='50.0',
+        'lateral_offset_distance', default_value='40.0',
         description='colav_automaton lateral_offset_distance (m) - how '
                      'far to the side a detour waypoint is placed. 2.5x '
                      'safety_radius, wide enough to clear an obstacle at a '
@@ -97,7 +112,7 @@ def generate_launch_description():
 
     longitudinal_offset_distance = LaunchConfiguration('longitudinal_offset_distance')
     declare_longitudinal_offset_distance = DeclareLaunchArgument(
-        'longitudinal_offset_distance', default_value='50.0',
+        'longitudinal_offset_distance', default_value='40.0',
         description='colav_automaton longitudinal_offset_distance (m). '
                      'Not currently read by generate_new_virtual_waypoint, '
                      'kept in step with lateral_offset_distance.')
@@ -113,7 +128,7 @@ def generate_launch_description():
     # this launch file's other hydrofoil-scale thresholds instead.
     dsf = LaunchConfiguration('dsf')
     declare_dsf = DeclareLaunchArgument(
-        'dsf', default_value='60.0',
+        'dsf', default_value='500.0',
         description='risk_envelope_node Distance Safety Factor (m) - how '
                      'close (or how close to closing) a vessel needs to be '
                      'before riskenv.create_unsafe_set folds it into the '
@@ -123,7 +138,7 @@ def generate_launch_description():
 
     time_of_interest = LaunchConfiguration('time_of_interest')
     declare_time_of_interest = DeclareLaunchArgument(
-        'time_of_interest', default_value='30.0',
+        'time_of_interest', default_value='100.0',
         description='risk_envelope_node TCPA horizon (s) for its I3 '
                      'filter - library default (100.0) pulls in traffic '
                      "that's still minutes away at this scenario's speeds/"
@@ -155,6 +170,25 @@ def generate_launch_description():
             'time_of_interest': time_of_interest,
         }])
 
+    # Sends scenario_file's own planningProblem/goalState (see
+    # scenario_loader.py) to tactical_node's execute_mission action as a
+    # single leg -- see scenario_goal_sender.py's own module docstring for
+    # why this goes straight to tactical_node rather than through
+    # strategy_node's multi-leg mission layer. Only meaningful (and only
+    # started) alongside a scenario_file that actually has a
+    # <planningProblem>/<goalState> -- every scenarios/*.xml file does
+    # today, including scenarios/COLREG_*.xml.
+    scenario_goal_sender = Node(
+        package='hybraut_nav_colreg_sim',
+        executable='scenario_goal_sender',
+        name='scenario_goal_sender',
+        output='screen',
+        condition=IfCondition(PythonExpression(['"', scenario_file, '" != ""'])),
+        parameters=[{
+            'scenario_file': scenario_file,
+            'use_sim_time': use_sim_time,
+        }])
+
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_share, 'launch', 'gz_sim.launch.py')),
@@ -163,6 +197,8 @@ def generate_launch_description():
             'world': world,
             'spawn_vessels': spawn_vessels,
             'publish_vessel_ais': publish_vessel_ais,
+            'scenario_file': scenario_file,
+            'scenario_seed': scenario_seed,
         }.items())
 
     # Override hybraut_nav_tactical_immediate.launch.py's rviz_config arg
@@ -190,6 +226,8 @@ def generate_launch_description():
         declare_world,
         declare_spawn_vessels,
         declare_publish_vessel_ais,
+        declare_scenario_file,
+        declare_scenario_seed,
         declare_rviz,
         declare_acceptance_radius,
         declare_safety_radius,
@@ -201,4 +239,5 @@ def generate_launch_description():
         gz_sim,
         risk_envelope_node,
         tactical_immediate,
+        scenario_goal_sender,
     ])

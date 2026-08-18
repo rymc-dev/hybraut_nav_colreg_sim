@@ -46,6 +46,7 @@ setup(
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
         (os.path.join('share', package_name, 'world'), glob('world/*.world')),
         (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
+        (os.path.join('share', package_name, 'scenarios'), glob('scenarios/*.xml')),
     ] + models_data_files(),
     install_requires=['setuptools'],
     zip_safe=True,
@@ -61,6 +62,9 @@ setup(
     entry_points={
         'console_scripts': [
             'vessel_ais_bridge = hybraut_nav_colreg_sim.vessel_ais_bridge:main',
+            'obstacle_vessel_controler = hybraut_nav_colreg_sim.obstacle_vessel_controler:main',
+            'map_publisher = hybraut_nav_colreg_sim.map_publisher:main',
+            'scenario_goal_sender = hybraut_nav_colreg_sim.scenario_goal_sender:main',
         ],
     },
 )

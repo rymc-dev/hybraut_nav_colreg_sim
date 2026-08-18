@@ -21,6 +21,13 @@
 # radius, not a real COLREG/maritime domain model -- just enough to scale
 # sensibly with vessel size for riskenv to work with.
 vessels:
+  - tag: agent
+    mnsi: 235100000 
+    type: hydrofoil
+    loa: 12.5
+    beam: 4.7
+    safety_radius: 8.25
+  
   - tag: hydrofoil_vessel
     mmsi: 235100001
     type: hydrofoil
