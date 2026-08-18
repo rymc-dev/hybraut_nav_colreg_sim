@@ -412,11 +412,20 @@ def generate_launch_description():
             parameters=[{'use_sim_time': use_sim_time, 'ais_config_path': ais_config_path}])
 
         # Size /map to actually cover wherever this run's fleet ends up,
-        # centered on its bounding box (ego + every spawned vessel) with a
-        # clearance margin so nobody spawns right at the map's edge.
+        # centered on its bounding box (ego + every spawned vessel + the
+        # planningProblem's own goal region, reanchored the same way as
+        # scenario_goal_sender.py's own copy of this) with a clearance
+        # margin so nobody spawns -- and the goal doesn't land -- right at
+        # the map's edge.
         MAP_MARGIN_M = 100.0
         xs = [ego_xy[0]] + [x for _, _, x, _, _, _ in vessel_table]
         ys = [ego_xy[1]] + [y for _, _, _, y, _, _ in vessel_table]
+        if _scenario_for_ego is not None and _scenario_for_ego.ego_goal_xy is not None:
+            goal_x, goal_y = scenario_loader.reanchor_xy(
+                _scenario_for_ego.ego_goal_xy, ego_xy, _scenario_for_ego.ego_initial_xy)
+            goal_radius = _scenario_for_ego.ego_goal_radius or 0.0
+            xs += [goal_x - goal_radius, goal_x + goal_radius]
+            ys += [goal_y - goal_radius, goal_y + goal_radius]
         map_center = ((min(xs) + max(xs)) / 2.0, (min(ys) + max(ys)) / 2.0)
         map_width_m = (max(xs) - min(xs)) + 2 * MAP_MARGIN_M
         map_height_m = (max(ys) - min(ys)) + 2 * MAP_MARGIN_M
